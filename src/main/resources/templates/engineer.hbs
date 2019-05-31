@@ -13,7 +13,7 @@
      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
        <span class="navbar-toggler-icon"></span>
      </button>
-     <a class="navbar-brand" href="#">Navbar</a>
+     <a class="navbar-brand" href="#"><img src="C:\Users\vchepkoit\IdeaProjects\site-maintenance\src\main\resources\public\safaricom-twaweza-logo.png" width="30" height="30" alt="safaricom logo"></a>
 
      <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
@@ -38,7 +38,52 @@
    </nav>
 
 <!--navbar end-->
-
    </div>
+
+   <!-- Editable table -->
+   <div class="card">
+     <h3 class="card-header text-center font-weight-bold text-uppercase py-4">List of all Safaricom Maintenance Engineers</h3>
+     <div class="card-body">
+       <div id="table" class="table-editable">
+         <span class="table-add float-right mb-3 mr-2"><a href="#!" class="text-success"><i
+               class="fas fa-plus fa-2x" aria-hidden="true"></i></a></span>
+         <table class="table table-bordered table-responsive-md table-striped text-center">
+           <thead>
+             <tr>
+               <th class="text-center">First Name</th>
+               <th class="text-center">Last Name</th>
+               <th class="text-center">EK#</th>
+               <th class="text-center">Region</th>
+               <th class="text-center">Edit Details</th>
+               <th class="text-center">Add Sites</th>
+               <th class="text-center">Remove Engineer</th>
+             </tr>
+           </thead>
+           <tbody>
+             <tr>
+               <td class="pt-3-half" contenteditable="true">Jane</td>
+               <td class="pt-3-half" contenteditable="true">Doe</td>
+               <td class="pt-3-half" contenteditable="true">0001</td>
+               <td class="pt-3-half" contenteditable="true">WN</td>
+
+               <td>
+                 <span class="table-remove"><button type="button"
+                     class="btn btn-success btn-rounded btn-sm my-0">Edit</button></span>
+               </td>
+               <td>
+                <span class="table-remove"><button type="button"
+                    class="btn btn-success btn-rounded btn-sm my-0">Add Sites</button></span>
+              </td>
+              <td>
+               <span class="table-remove"><button type="button"
+                   class="btn btn-danger btn-rounded btn-sm my-0">Remove</button></span>
+             </td>
+             </tr>
+           </tbody>
+         </table>
+       </div>
+     </div>
+   </div>
+   <!-- Editable table -->
  </body>
 </html>

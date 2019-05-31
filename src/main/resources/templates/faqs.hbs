@@ -7,12 +7,99 @@
  <body>
  <div class="container">
    <!--It's useful to put a comment at the top of your hbs file to help you keep track of what is what when things get more complex.-->
-   <h1>FAQs</h1>
-   <p>Dear Friend,</p>
-   <p><a href='/engineer' >Engineer.</a></p>
-   <p><a href='/site' >Site.</a></p>
-   <p><a href='/' >Home.</a></p>
-   <p><a href='/faqs' >FAQs.</a></p>
+
+    <!--navbar-->
+   <nav class="navbar navbar-expand-lg navbar-light bg-light">
+     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+       <span class="navbar-toggler-icon"></span>
+     </button>
+     <a class="navbar-brand" href="#"><img src="C:\Users\vchepkoit\IdeaProjects\site-maintenance\src\main\resources\public\safaricom-twaweza-logo.png" width="30" height="30" alt="safaricom logo"></a>
+
+     <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+       <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+         <li class="nav-item active">
+           <a class="nav-link" href='/' >Home <span class="sr-only">(current)</span></a>
+         </li>
+         <li class="nav-item">
+           <a class="nav-link" href='/engineer'>Maintenance Engineers</a>
+         </li>
+         <li class="nav-item">
+           <a class="nav-link disabled" href='/site'>Safaricom Sites</a>
+         </li>
+         <li class="nav-item">
+           <a class="nav-link disabled" href='/faqs'>FAQs</a>
+         </li>
+       </ul>
+       <form class="form-inline my-2 my-lg-0">
+         <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+       </form>
+     </div>
+   </nav>
+
+<!--navbar end-->
+
    </div>
+
+   <div class="container">
+       <br />
+       <br />
+       <br />
+
+       <div class="alert alert-success alert-dismissible" role="alert">
+           <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+           Get all the info on how to use this Web App.
+       </div>
+
+       <br />
+
+       <div class="" id="accordion">
+           <div class="faqHeader">General questions</div>
+           <div class="card ">
+               <div class="card-header">
+                   <h4 class="card-header">
+                       <a class="accordion-toggle">Is account registration required?</a>
+                   </h4>
+
+                      <p> Account registration is only required for Managers so that you can get admin rights to add or delete engineers or sites.
+                       Engineers have the read only capability hence no need to create an account.</p>
+                   </div>
+           </div>
+           <div class="card ">
+              <div class="card-header">
+                  <h4 class="card-header">
+                      <a class="accordion-toggle">Is account registration required?</a>
+                  </h4>
+
+                     <p> Account registration is only required for Managers so that you can get admin rights to add or delete engineers or sites.
+                      Engineers have the read only capability hence no need to create an account.</p>
+                  </div>
+          </div>
+          <div class="card ">
+             <div class="card-header">
+                 <h4 class="card-header">
+                     <a class="accordion-toggle">Is account registration required?</a>
+                 </h4>
+
+                    <p> Account registration is only required for Managers so that you can get admin rights to add or delete engineers or sites.
+                     Engineers have the read only capability hence no need to create an account.</p>
+                 </div>
+         </div>
+         <div class="card ">
+            <div class="card-header">
+                <h4 class="card-header">
+                    <a class="accordion-toggle">Is account registration required?</a>
+                </h4>
+
+                   <p> Account registration is only required for Managers so that you can get admin rights to add or delete engineers or sites.
+                    Engineers have the read only capability hence no need to create an account.</p>
+                </div>
+        </div>
+
+   </div>
+   <br>
+   <br>
+   <br>
+
  </body>
 </html>
