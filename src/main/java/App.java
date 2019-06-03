@@ -1,83 +1,77 @@
-import static spark.Spark.*;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-
+import dao.Sql2oEngineerDao;
+import dao.EngineerDao;
+import models.Engineer;
+import models.Site;
 import org.sql2o.Connection;
 import spark.ModelAndView;
+import org.sql2o.Sql2o;
+
+
 import spark.template.handlebars.HandlebarsTemplateEngine;
 
+import static spark.Spark.*;
+
 public class App {
-    private String firstname;
-    private String lastname;
-    private int ek;
-    private String email;
-    private int id;
-
-    public App(String firstname, String lastname, int ek, String email, int id) {
-        this.firstname = firstname;
-        this.lastname = lastname;
-        this.ek = ek;
-        this.email = email;
-        this.id = id;
-    }
-
-    public String getFirstname() { return firstname; }
-    public String getLastName() { return lastname; }
-    public int getEk() { return ek; }
-    public String getEmail() { return email;
-    }
-
-
-
-    @Override
-    public boolean equals(Object otherEngineer) {
-        if (!(otherEngineer instanceof App)) {
-            return false;
-        } else {
-            App newApp = (App) otherEngineer;
-            return this.getFirstname().equals(newApp.getFirstname()) &&
-                    this.getLastName().equals(newApp.getLastName());
-            this.getEk().equals(newApp.getEk());
-            this.getEmail().equals(newApp.getEmail());
-
-
-        }
-    }
-
-    public void save() {
-        try(Connection con = Site_maintenance.sql2o.open()) {
-            String sql = "INSERT INTO engineer (firstname, lastname, ek, email, id) VALUES (:firstname, :lastname, :ek, :email, id)";
-            this.id = (int) con.createQuery(sql, true)
-                    .addParameter("firstname", this.firstname)
-                    .addParameter("lastname", this.lastname)
-                    .addParameter("ek", this.ek)
-                    .addParameter("email", this.email)
-                    .addParameter("id", this.id)
-                    .executeUpdate()
-                    .getKey();
-        }
-    }
-
-
     public static void main(String[] args) {
-
         staticFileLocation("/public");
 
-        get("/", (request, response) -> {
-            return new ModelAndView(new HashMap(), "index.hbs");
-        }, new HandlebarsTemplateEngine());
+        String connectionString = "jdbc:postgresql://localhost:5432/site_man";
+        Sql2o sql2o = new Sql2o(connectionString, "postgres", "Mogakers#128");
+        Sql2oEngineerDao engineerDao = new Sql2oEngineerDao(sql2o);
 
-        post("/", (request, response) -> { //URL to make new post on POST route
+        //link to welcome page
+//        get("/", (request, response) -> {
+//            return new ModelAndView(new HashMap(), "welcome.hbs");
+//        }, new HandlebarsTemplateEngine());
+
+
+
+//       ENGINEER DAO
+//=================================================================
+        //show all engineers at welcome
+        get("/", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
-            String _firstname = request.queryParams("firstname");
-            String _lastname = request.queryParams("lastname");
-            int _ek = Integer.parseInt(request.queryParams("ek"));
-            String _email = request.queryParams("email");
-            App newApp = new App(_firstname,_lastname,_ek,_email);
-            return new ModelAndView(model, "index.hbs");
+            List<Engineer> engineers = engineerDao.getAll();
+            model.put("engineers", engineers);
+            return new ModelAndView(model, "welcome.hbs");
         }, new HandlebarsTemplateEngine());
 
 
+//        //show new engineer form
+//        get("/engineers/new", (req, res) -> {
+//            Map<String, Object> model = new HashMap<>();
+//            List<Engineer> engineers = engineerDao.getAll(); //refresh list of links for navbar
+//            model.put("engineers", engineers);
+//            return new ModelAndView(model, "welcome.hbs"); //new
+//        }, new HandlebarsTemplateEngine());
+
+        //post: process new engineer form
+        post("/", (req, res) -> { //new
+            Map<String, Object> model = new HashMap<>();
+            String name = req.queryParams("content");
+            Engineer newEngineer = new Engineer(name);
+            engineerDao.add(newEngineer);
+            res.redirect("/");
+            return null;
+        }, new HandlebarsTemplateEngine());
+
+//        //Delete an Engineer
+//        get("/engineers/:id/delete", (req, res) -> {
+//            Map<String, Object> model = new HashMap<>();
+//            int idOfEngineerToDelete = Integer.parseInt(req.params("id")); //pull id - must match route segment
+//            Engineer deleteEngineer = EngineerDao.findById(idOfEngineerToDelete); //use it to find post
+//            deleteEngineer.deleteEngineer();
+//            return new ModelAndView(model, "success.hbs");
+//        }, new HandlebarsTemplateEngine());
+//=================================================================
+
+        get("/users", (request, response) -> {
+            return new ModelAndView(new HashMap(), "users.hbs");
+        }, new HandlebarsTemplateEngine());
 
         get("/engineer", (request, response) -> {
             return new ModelAndView(new HashMap(), "engineer.hbs");
@@ -87,11 +81,64 @@ public class App {
             return new ModelAndView(new HashMap(), "site.hbs");
         }, new HandlebarsTemplateEngine());
 
-        get("/faqs", (request, response) -> {
-            return new ModelAndView(new HashMap(), "faqs.hbs");
+        get("/users", (request, response) -> {
+            return new ModelAndView(new HashMap(), "users.hbs");
         }, new HandlebarsTemplateEngine());
 
+        // FOR ENGINEERS
+//        ===============================================
+
+        //get: show new staff form
+//        get("/engineers/new", (req, res) -> {
+//            Map<String, Object> model = new HashMap<>();
+//            return new ModelAndView(model, "welcome.hbs");
+//        }, new HandlebarsTemplateEngine());
+//        //post: create new Engineer
+//        post("/engineers/new", (request, response) -> { //URL to make new post on POST route
+//            Map<String, Object> model = new HashMap<String, Object>();
+//            String content = request.queryParams("content");
+//            Engineer newEngineer= new Engineer(content);
+//            return new ModelAndView(model, "success.hbs");
+//        }, new HandlebarsTemplateEngine());
+        //Shows all Engineers at Welcome
+//        get("/", (req, res) -> {
+//            Map<String, Object> model = new HashMap<>();
+//            ArrayList<Engineer> engineers = EngineerDao.getAll();
+//            model.put("engineers", engineers);
+//            return new ModelAndView(model, "welcome.hbs");
+//        }, new HandlebarsTemplateEngine());
+
+        //FOR SITES
+//        ===============================================
+
+        //get: show new Site form
+//        get("/sites/new", (req, res) -> {
+//            Map<String, Object> model = new HashMap<>();
+//            return new ModelAndView(model, "welcome.hbs");
+//        }, new HandlebarsTemplateEngine());
+        //post: create new Site
+        post("/sites/new", (request, response) -> { //URL to make new post on POST route
+            Map<String, Object> model = new HashMap<String, Object>();
+            String content = request.queryParams("name");
+            Site newSite= new Site(content);
+            return new ModelAndView(model, "success.hbs");
+        }, new HandlebarsTemplateEngine());
+        //Shows all Sites at Welcome
+//        get("/", (req, res) -> {
+//            Map<String, Object> model = new HashMap<>();
+//            ArrayList<Site> sites = Site.getAll();
+//            model.put("sites", sites);
+//            return new ModelAndView(model, "welcome.hbs");
+//        }, new HandlebarsTemplateEngine());
 
 
+        //FOR ENGINEER DAO
+//        ====================================================
+//        get("/", (req, res) -> {
+//            Map<String, Object> model = new HashMap<>();
+//            List<Engineer> allEngineers = EngineerDao.getAll();
+//            model.put("engineers", allEngineers);
+//            return new ModelAndView(model, "welcome.hbs");
+//        }, new HandlebarsTemplateEngine());
     }
 }
