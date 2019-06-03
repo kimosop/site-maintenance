@@ -18,7 +18,7 @@ A Web App for managing site maintenance. Allows managers to add/delete engineers
 
 |    Behavior   |     Input     |    Output                                                                  |
 | ------------- | ------------- | ---------------------------------------------------------------------------|
-| Add new Engineer  | Jane Doe|     "Jane Doe"                                                                 |
+| Add new App  | Jane Doe|     "Jane Doe"                                                                 |
 |
 | ------------- | ------------- | ---------------------------------------------------------------------------|
 | Add new site  |10001 1256 Naivasha     |     "10001 1256 Naivasha"                                                        |

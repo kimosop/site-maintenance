@@ -6,14 +6,14 @@ import org.sql2o.Connection;
 import spark.ModelAndView;
 import spark.template.handlebars.HandlebarsTemplateEngine;
 
-public class Engineer {
+public class App {
     private String firstname;
     private String lastname;
     private int ek;
     private String email;
     private int id;
 
-    public Engineer(String firstname, String lastname, int ek, String email, int id) {
+    public App(String firstname, String lastname, int ek, String email, int id) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.ek = ek;
@@ -31,14 +31,14 @@ public class Engineer {
 
     @Override
     public boolean equals(Object otherEngineer) {
-        if (!(otherEngineer instanceof Engineer)) {
+        if (!(otherEngineer instanceof App)) {
             return false;
         } else {
-            Engineer newEngineer = (Engineer) otherEngineer;
-            return this.getFirstname().equals(newEngineer.getFirstname()) &&
-                    this.getLastName().equals(newEngineer.getLastName());
-            this.getEk().equals(newEngineer.getEk());
-            this.getEmail().equals(newEngineer.getEmail());
+            App newApp = (App) otherEngineer;
+            return this.getFirstname().equals(newApp.getFirstname()) &&
+                    this.getLastName().equals(newApp.getLastName());
+            this.getEk().equals(newApp.getEk());
+            this.getEmail().equals(newApp.getEmail());
 
 
         }
@@ -73,13 +73,11 @@ public class Engineer {
             String _lastname = request.queryParams("lastname");
             int _ek = Integer.parseInt(request.queryParams("ek"));
             String _email = request.queryParams("email");
-            Engineer newEngineer = new Engineer(_firstname,_lastname,_ek,_email);
+            App newApp = new App(_firstname,_lastname,_ek,_email);
             return new ModelAndView(model, "index.hbs");
         }, new HandlebarsTemplateEngine());
 
-        get("/", (request, response) -> {
-            return new ModelAndView(new HashMap(), "index.hbs");
-        }, new HandlebarsTemplateEngine());
+
 
         get("/engineer", (request, response) -> {
             return new ModelAndView(new HashMap(), "engineer.hbs");
