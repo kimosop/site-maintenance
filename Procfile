@@ -1,0 +1,1 @@
+web: ./build/install/site-maintenance/bin/site-maintenance
