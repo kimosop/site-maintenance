@@ -24,12 +24,12 @@ public class App {
         Sql2oEngineerDao engineerDao = new Sql2oEngineerDao(sql2o);
 
 
-        //show all engineers at welcome
+        //homepage shows a form for adding engineers
         get("/", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
             List<Engineer> engineers = engineerDao.getAll();
             model.put("engineers", engineers);
-            return new ModelAndView(model, "welcome.hbs");
+            return new ModelAndView(model, "index.hbs");
         }, new HandlebarsTemplateEngine());
 
 
