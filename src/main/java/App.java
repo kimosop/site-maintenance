@@ -19,8 +19,8 @@ public class App {
     public static void main(String[] args) {
         staticFileLocation("/public");
 
-        String connectionString = "jdbc:postgresql://localhost:5432/site_man";
-        Sql2o sql2o = new Sql2o(connectionString, "postgres", "Mogakers#128");
+        String connectionString = "jdbc:postgresql://localhost:5432/safsites";
+        Sql2o sql2o = new Sql2o(connectionString, "postgres", "kimosop");
         Sql2oEngineerDao engineerDao = new Sql2oEngineerDao(sql2o);
 
 
@@ -36,7 +36,7 @@ public class App {
         //post: process new engineer form
         post("/", (req, res) -> { //new
             Map<String, Object> model = new HashMap<>();
-            String name = req.queryParams("content");
+            String name = req.queryParams("firstname, lastname, ek, email");
             Engineer newEngineer = new Engineer(name);
             engineerDao.add(newEngineer);
             res.redirect("/");
@@ -44,8 +44,8 @@ public class App {
         }, new HandlebarsTemplateEngine());
 
 
-        get("/users", (request, response) -> {
-            return new ModelAndView(new HashMap(), "users.hbs");
+        get("/", (request, response) -> {
+            return new ModelAndView(new HashMap(), "index.hbs");
         }, new HandlebarsTemplateEngine());
 
         get("/engineer", (request, response) -> {
@@ -56,18 +56,7 @@ public class App {
             return new ModelAndView(new HashMap(), "site.hbs");
         }, new HandlebarsTemplateEngine());
 
-        get("/users", (request, response) -> {
-            return new ModelAndView(new HashMap(), "users.hbs");
-        }, new HandlebarsTemplateEngine());
 
-
-        //post: create new Site
-        post("/sites/new", (request, response) -> { //URL to make new post on POST route
-            Map<String, Object> model = new HashMap<String, Object>();
-            String content = request.queryParams("name");
-            Site newSite= new Site(content);
-            return new ModelAndView(model, "success.hbs");
-        }, new HandlebarsTemplateEngine());
 
     }
 }
